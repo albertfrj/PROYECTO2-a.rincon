@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heladería</title>
+</head>
+<body>
+    <h1>Bienvenido a la Heladería</h1>
+    <h2>Menú</h2>
+    <ul>
+        {% for item in menu %}
+            <li>{{ item.nombre }} - ${{ item.precio }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
