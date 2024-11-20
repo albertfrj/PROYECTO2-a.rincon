@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from .db import db
+from app.db import db, Producto, Ingrediente
 from app.controlador import Controlador
 import sys
 import os
@@ -17,7 +17,20 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # Inicializar SQLAlchemy
 db.init_app(app)
 
-# Instanciar el controlador
+with app.app_context():
+    # Crear productos
+    helado_chocolate = Producto(nombre="Helado de Chocolate", precio=5.0)
+    helado_vainilla = Producto(nombre="Helado de Vainilla", precio=4.5)
+
+    # Crear ingredientes
+    cacao = Ingrediente(nombre="Cacao", producto=helado_chocolate)
+    leche = Ingrediente(nombre="Leche", producto=helado_vainilla)
+
+    # Guardar en la base de datos
+    db.session.add_all([helado_chocolate, helado_vainilla, cacao, leche])
+    db.session.commit()
+
+
 controlador = Controlador()
 
 @app.route('/')
