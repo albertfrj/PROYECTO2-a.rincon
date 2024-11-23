@@ -3,15 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heladería</title>
+    <title>Menu de la Heladería</title>
 </head>
 <body>
-    <h1>Bienvenido a la Heladería</h1>
-    <h2>Menú</h2>
-    <ul>
-        {% for item in menu %}
-            <li>{{ item.nombre }} - ${{ item.precio }}</li>
-        {% endfor %}
-    </ul>
+    <h1>Menu de la Heladería</h1>
+
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div style="color: green; font-weight: bold;">
+                {{ messages[0] }} 
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    {% for producto in productos %}
+        <div>
+            <h2>{{ producto.nombre }}</h2>
+            <p>Precio: ${{ producto.precio }}</p>
+            <a href="{{ url_for('vender', producto_id=producto.id) }}">Vender</a>
+        </div>
+    {% endfor %}
 </body>
 </html>
